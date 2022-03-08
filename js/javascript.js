@@ -70,9 +70,7 @@ myLogoHeadingEle.className = "logo-heading";
 myLogo.appendChild(myLogoHeadingEle);
 const myLogoHeading = document.getElementById("logo-heading");
 
-myLogoHeading.innerHTML = `Port<span class="spc-color">Folio</span>`;
-// const myLoATextNode = document.createTextNode("PortFolio"); // Logo Ele => A Ele => Text Node
-// myLogoHeading.appendChild(myLoATextNode);
+myLogoHeading.innerHTML = `PortFolo`;
 
 const myNavEle = document.createElement("nav"); // Header => Container Ele => Content Ele => Nav
 myNavEle.id = "nav";
@@ -143,11 +141,16 @@ for (let i = 0; i < 5; i++) {
 let myLinks = Array.from(document.querySelectorAll(".nav-links .nav-link")); //  Active Class Funcion
 
 myLinks[0].textContent = "Home";
+myLinks[0].setAttribute("data-to", "home");
 myLinks[0].classList.add("active");
 myLinks[1].textContent = "About";
+myLinks[1].setAttribute("data-to", "about");
 myLinks[2].textContent = "Work";
+myLinks[2].setAttribute("data-to", "work");
 myLinks[3].textContent = "Services";
+myLinks[3].setAttribute("data-to", "services");
 myLinks[4].textContent = "Contact";
+myLinks[4].setAttribute("data-to", "contact");
 
 myLinks.forEach((ele) => {
     ele.addEventListener("click", (e) => {
@@ -155,6 +158,10 @@ myLinks.forEach((ele) => {
             ele.classList.remove("active");
         });
         e.target.classList.add("active");
+        window.scrollTo({
+            top: document.getElementById(`${ele.dataset.to}`).offsetTop - 70,
+            behavior: "smooth",
+        });
         e.preventDefault();
     });
 });
@@ -300,7 +307,7 @@ aboutData.className = "about-data";
 aboutData.id = "about-data";
 contentAbout.appendChild(aboutData);
 
-aboutData.innerHTML = `
+aboutData.innerHTML /* Content => About Data => Data Text */ = ` 
     <h1 class="title-about">I'am Yousef</h1>
     <p class="text">
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Id nulla harum delectus
@@ -308,5 +315,50 @@ aboutData.innerHTML = `
     nesciunt? Architecto modi velit quis possimus aut aperiam.
     </p>
 `;
+
+const bulleteUl = document.getElementById("position");
+const bulletesTop = Array.from(document.querySelectorAll(".position > li")); // Position Top Bulletes
+
+bulleteUl.innerHTML = `
+    <li data-top="home" class="active"></li>
+    <li data-top="about"></li>
+    <li data-top="skills"></li>
+    <li data-top="work"></li>
+`;
+
+console.log(bulleteUl);
+
+bulletesTop.forEach((ele) => {
+   ele.addEventListener("click", () => {
+       window.scrollTo({
+           top: document.getElementById(`${ele.dataset.top}`).offsetTop - 70,
+           behavior: "smooth"
+       });
+       bulletesTop.forEach((ele) => {
+           ele.classList.remove("active");
+       });
+       ele.classList.add("active");
+   });
+});
+
+window.onscroll = () => {
+    bulletesTop.forEach((ele) => {
+        ele.classList.remove("active");
+    });
+};
+
+const skills = document.getElementById("skills"); // Skills
+
+const skillsTitle = document.createElement("div"); // Skills => Title
+skillsTitle.className = "skills-title";
+skillsTitle.id = "skills-title";
+skills.appendChild(skillsTitle);
+
+const skillsTitleH1 = document.createElement("h1"); // Skills => Title => H1
+skillsTitleH1.className = "main-title";
+skillsTitleH1.textContent = "Skills";
+skillsTitle.appendChild(skillsTitleH1);
+
+// const subSkills = document.createElement("");
 
 console.log();
